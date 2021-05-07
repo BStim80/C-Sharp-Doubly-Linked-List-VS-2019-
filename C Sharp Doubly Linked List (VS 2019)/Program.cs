@@ -155,26 +155,25 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
 
-        //todo: make a for loop to iterate through the list until it finds string reference 
+        //todo: make a for loop to iterate through the list until it finds the reference 
         //that user entered
-        //return index where data can be found or just return bool if the item is in the list.
-        //Maybe I can just put this for loop in the else statement in the FindByIndex method
+        //return index where data can be found 
+        //return -1 if data is not in the list
 
-        /*
-         * [] Initialize a variable, say position, to store the position of the node containing
-         * [] data value x in the linked list
-         * 
-         * [] Initialize a pointer, say temp, to store the head node of linked list
-         * 
-         * [] Iterate over linked list and for every node, check if data value of that node is
-         *    equal to X or not. If found to be true, then print position
-         * 
-         * [] Otherwise, print -1
-         */
-        public object FindByData()
+        public int FindByData(object dataToFind)
         {
+            Node current = this.head;//gets head node
 
-            return 0;
+            for (var i = 0; i < this.count; i++)
+            {
+                if (current.Data.Equals(dataToFind))
+                {
+                    return i;
+                }
+                current = current.Next;
+            }
+            
+            return -1;
         }
 
         public object Remove(int index)
@@ -216,16 +215,14 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         {
             LinkedList list = new LinkedList();
 
-            list.InsertByIndex(0, "test1");
-            list.InsertByIndex(1, "Test2");
+            list.InsertByIndex(0, "Test1");
+            list.InsertByIndex(1, 2);
             list.InsertByIndex(2, "Test3");
             list.InsertByIndex(3, "Test4");
 
-            list.InsertAtHead(1);
+            //list.InsertAtHead(1);
 
-            list.InsertAtTail(6);
-
-
+            //list.InsertAtTail(6);
 
             Console.WriteLine("Is it empty? " + list.Empty);
 
@@ -233,9 +230,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Head Node is: " + list.FindByIndex(0));
 
-            Console.WriteLine("Tail node is: " + list.FindByIndex(5));
+            Console.WriteLine("Tail node is: " + list.FindByIndex(3));
 
-            //Console.WriteLine("Your desired data is found in index number: " + list.FindByData("Test2"));
+            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("Test3"));
 
             Console.ReadKey();
         }
