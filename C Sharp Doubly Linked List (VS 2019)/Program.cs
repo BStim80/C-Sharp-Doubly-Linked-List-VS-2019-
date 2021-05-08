@@ -7,7 +7,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
     //previous and next nodes in the list
     public class Node
     {
-        //private fields
+        //private fields 
         private object data;//contains the data stored in the node
         private Node next;//the reference to the next node. if no next node, next = null;
         private Node previous;//reference to the previous node. if no previous node, previous = null;
@@ -49,7 +49,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         private Node tail;//reference to tail node
         private int count;//total count of all node in the list
 
-        //Contstructor
+        //Constructor 
         public LinkedList()
         {
             this.head = null;
@@ -155,24 +155,45 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
 
-        //todo: make a for loop to iterate through the list until it finds the reference 
+        //to do: make a for loop to iterate through the list until it finds the reference 
         //that user entered
         //return index where data can be found 
         //return -1 if data is not in the list
 
+        /*
+         * [] Initialize a variable, say position, to store the position of the node containing 
+         *      data value X in the doubly linked list
+         * 
+         * [x] Initialize pointer, say temp, to store the head node of the doubly linked list
+         * 
+         * [] Iterate over the linked list and, for every node, check if data value of that node
+         *      is equal to X or not. If found to be true, print position
+         * 
+         * [x] Otherwise, print -1        
+         */
+
+
+        /*
+         * In it's current state, the FindByData method is not working to find integers.
+         * It will find string references but does not always return the right index position
+         * 5/8 5:00pm
+         */
         public int FindByData(object dataToFind)
         {
             Node current = this.head;//gets head node
+            this.count = count - 1;
+
+            int indexPosition = 0;
 
             for (var i = 0; i < this.count; i++)
             {
+                indexPosition++;
                 if (current.Data.Equals(dataToFind))
                 {
-                    return i;
+                    return indexPosition;
                 }
                 current = current.Next;
-            }
-            
+            }           
             return -1;
         }
 
@@ -193,8 +214,10 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             //removes the head node
             if (index == 0)
             {
-                result = current.Data;
-                this.head = current.Next;
+                result = current.Data;//get the data from the head node
+                this.head = current.Next;//removes reference from head and set it to next node
+                                         //garbage collection takes care of removing the former 
+                                         //head node for us
             }
 
             count--;
@@ -204,6 +227,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         public void Clear()
         {
             this.head = null;
+            this.tail = null;
             this.count = 0;
         }
 
@@ -232,9 +256,10 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Tail node is: " + list.FindByIndex(3));
 
-            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("Test3"));
+            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("2"));
 
             Console.ReadKey();
         }
+
     }
 }
