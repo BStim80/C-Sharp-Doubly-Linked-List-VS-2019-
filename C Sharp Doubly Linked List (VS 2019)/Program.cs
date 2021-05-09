@@ -133,6 +133,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             this.InsertByIndex(Count, itemToInsert);
         }
 
+
+
         public object FindByIndex(int index)
         {
             if (index < 0)
@@ -187,13 +189,14 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             for (var i = 0; i < this.count; i++)
             {
-                indexPosition++;
+                
                 if (current.Data.Equals(dataToFind))
                 {
                     return indexPosition;
                 }
                 current = current.Next;
-            }           
+                indexPosition++;
+            }
             return -1;
         }
 
@@ -240,7 +243,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             LinkedList list = new LinkedList();
 
             list.InsertByIndex(0, "Test1");
-            list.InsertByIndex(1, 2);
+ /*           list.InsertByIndex(1, "2");*/
             list.InsertByIndex(2, "Test3");
             list.InsertByIndex(3, "Test4");
 
@@ -256,7 +259,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Tail node is: " + list.FindByIndex(3));
 
-            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("2"));
+            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("Test4"));
 
             Console.ReadKey();
         }
