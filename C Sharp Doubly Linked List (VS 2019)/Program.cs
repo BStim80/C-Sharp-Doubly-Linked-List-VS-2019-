@@ -183,7 +183,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         public int FindByData(object dataToFind)
         {
             Node current = this.head;//gets head node
-            this.count = count - 1;
+            //this.count = count - 1;
 
             int indexPosition = 0;
 
@@ -192,7 +192,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 
                 if (current.Data.Equals(dataToFind))
                 {
-                    return indexPosition;
+                    return indexPosition + 1;
                 }
                 current = current.Next;
                 indexPosition++;
@@ -234,6 +234,25 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             this.count = 0;
         }
 
+        public void Print()
+        {
+            Node current = this.head;
+
+            if (head == null)
+            {
+                Console.WriteLine("List is empty");
+            }
+
+            Console.WriteLine("Nodes of doubly linked list are: ");
+
+            for (int i = 0; i < this.count; i++)
+            {
+                    Console.WriteLine(current.Data + " ");
+                    current = current.Next;
+            }
+            
+        }
+
     }
 
     class Program
@@ -242,14 +261,23 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         {
             LinkedList list = new LinkedList();
 
-            list.InsertByIndex(0, "Test1");
- /*           list.InsertByIndex(1, "2");*/
-            list.InsertByIndex(2, "Test3");
-            list.InsertByIndex(3, "Test4");
 
-            //list.InsertAtHead(1);
 
-            //list.InsertAtTail(6);
+            /*list.InsertByIndex(0, "Test1");//1
+            list.InsertByIndex(1, "Test3");//2
+            list.InsertByIndex(2, "Test4");//3*/
+
+            list.InsertAtHead("Test5");//0
+
+            list.InsertAtHead("Test6");//4
+
+            list.InsertAtHead("Test7");
+
+            list.InsertAtHead("Test8");
+
+            Console.WriteLine("All elements in the list: ");
+            list.Print();
+
 
             Console.WriteLine("Is it empty? " + list.Empty);
 
@@ -257,9 +285,10 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Head Node is: " + list.FindByIndex(0));
 
-            Console.WriteLine("Tail node is: " + list.FindByIndex(3));
+            Console.WriteLine("Tail node is: " + list.FindByIndex(99));
 
-            Console.WriteLine("The data you searched for is in index position: " + list.FindByData("Test4"));
+            Console.WriteLine("The data you searched for is in index position: " 
+                + list.FindByData("Test4"));
 
             Console.ReadKey();
         }
