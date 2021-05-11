@@ -102,8 +102,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
         public void InsertByIndex(int index, object itemToInsert)
         {
-            Node temp = new Node(itemToInsert, null, null);
-
+/*            Node temp = new Node(itemToInsert, null, null);
+*/
             //tell Dima that I changed the line below to count + 1 in case I was trying to
             //make new tail. I can change it back to (index < 0 || index > count)
             if (index < 0 || index > count + 1)
@@ -118,22 +118,24 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             //loops to node right before the one we want to insert into
             else
             {
+                Node current = this.head;
+
                 for (int i = 0; i < index - 1; i++)
                 {
-                    Node current = this.head;//gets first node in the list
-                    current = current.Next;//adjusts pointers
-                    current.Next = new Node(itemToInsert, current.Next, current.Previous);//creates new node, adjusts pointers
+                    current = current.Previous.Next;//adjusts pointers
                 }
+                current.Next = new Node(itemToInsert, null, current.Previous);
+/*                current.Next = new Node(itemToInsert, current.Next, current.Previous);//creates new node, adjusts pointers
+*/
             }
             count++;
         }
 
         public void InsertAtTail(object itemToInsert)
         {
-            this.InsertByIndex(Count, itemToInsert);
+            this.InsertByIndex(Count, itemToInsert);//this may need to be changed to 
+                                                    //this.InsertByIndex(Count + 1, itemToInsert)
         }
-
-
 
         public object FindByIndex(int index)
         {
@@ -144,7 +146,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 return null;
 
             else if (index >= this.count)
-                index = this.count - 1;
+                index = this.count;
 
             Node current = this.head;
 
@@ -192,7 +194,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 
                 if (current.Data.Equals(dataToFind))
                 {
-                    return indexPosition + 1;
+                    return indexPosition;
                 }
                 current = current.Next;
                 indexPosition++;
@@ -245,14 +247,12 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Nodes of doubly linked list are: ");
 
-            for (int i = 0; i < this.count; i++)
+            for (int i = 0; i < this.count - 1; i++)
             {
-                    Console.WriteLine(current.Data + " ");
-                    current = current.Next;
+                Console.WriteLine(current.Data + " ");
+                current = current.Next;
             }
-            
         }
-
     }
 
     class Program
@@ -263,9 +263,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
 
 
-            /*list.InsertByIndex(0, "Test1");//1
+            list.InsertByIndex(0, "Test1");//1
             list.InsertByIndex(1, "Test3");//2
-            list.InsertByIndex(2, "Test4");//3*/
+            list.InsertByIndex(2, "Test4");//3
 
             list.InsertAtHead("Test5");//0
 
@@ -275,6 +275,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             list.InsertAtHead("Test8");
 
+/*          list.InsertAtTail("Test9");
+*/
             Console.WriteLine("All elements in the list: ");
             list.Print();
 
@@ -283,12 +285,12 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Count: " + list.Count);
 
-            Console.WriteLine("Head Node is: " + list.FindByIndex(0));
+            /*Console.WriteLine("Head Node is: " + list.FindByIndex(0));
 
-            Console.WriteLine("Tail node is: " + list.FindByIndex(99));
+            Console.WriteLine("Tail node is: " + list.FindByIndex(99));*/
 
             Console.WriteLine("The data you searched for is in index position: " 
-                + list.FindByData("Test4"));
+                + list.FindByData("Test3"));
 
             Console.ReadKey();
         }
