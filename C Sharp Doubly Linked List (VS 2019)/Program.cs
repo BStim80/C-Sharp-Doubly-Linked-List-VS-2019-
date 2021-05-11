@@ -146,7 +146,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 return null;
 
             else if (index >= this.count)
-                index = this.count;
+                index = this.count;//maybe index = this.count -1;
 
             Node current = this.head;
 
@@ -275,9 +275,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             list.InsertAtHead("Test8");
 
-            list.InsertAtTail("Test9");
+            /*list.InsertAtTail("Test9");*/
 
-            Console.WriteLine("All elements in the list: ");
             list.Print();
 
 
