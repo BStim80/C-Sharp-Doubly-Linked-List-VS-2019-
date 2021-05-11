@@ -275,8 +275,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             list.InsertAtHead("Test8");
 
-/*          list.InsertAtTail("Test9");
-*/
+            list.InsertAtTail("Test9");
+
             Console.WriteLine("All elements in the list: ");
             list.Print();
 
@@ -285,9 +285,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Count: " + list.Count);
 
-            /*Console.WriteLine("Head Node is: " + list.FindByIndex(0));
+            Console.WriteLine("Head Node is: " + list.FindByIndex(0));
 
-            Console.WriteLine("Tail node is: " + list.FindByIndex(99));*/
+            Console.WriteLine("Tail node is: " + list.FindByIndex(6));
 
             Console.WriteLine("The data you searched for is in index position: " 
                 + list.FindByData("Test3"));
