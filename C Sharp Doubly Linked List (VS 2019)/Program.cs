@@ -122,11 +122,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
                 for (int i = 0; i < index - 1; i++)
                 {
-                    current = current.Previous.Next;//adjusts pointers
+                    current = current.Next;//adjusts pointers This line may have an error. Check tomorrow!
                 }
-                current.Next = new Node(itemToInsert, null, current.Previous);
-/*                current.Next = new Node(itemToInsert, current.Next, current.Previous);//creates new node, adjusts pointers
-*/
+                current.Next = new Node(itemToInsert, current, current);
             }
             count++;
         }
@@ -159,29 +157,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
 
-        //to do: make a for loop to iterate through the list until it finds the reference 
-        //that user entered
-        //return index where data can be found 
-        //return -1 if data is not in the list
 
-        /*
-         * [] Initialize a variable, say position, to store the position of the node containing 
-         *      data value X in the doubly linked list
-         * 
-         * [x] Initialize pointer, say temp, to store the head node of the doubly linked list
-         * 
-         * [] Iterate over the linked list and, for every node, check if data value of that node
-         *      is equal to X or not. If found to be true, print position
-         * 
-         * [x] Otherwise, print -1        
-         */
-
-
-        /*
-         * In it's current state, the FindByData method is not working to find integers.
-         * It will find string references but does not always return the right index position
-         * 5/8 5:00pm
-         */
         public int FindByData(object dataToFind)
         {
             Node current = this.head;//gets head node
@@ -225,7 +201,18 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                                          //head node for us
             }
 
+            else
+            {
+                for (int i = 0; i < index - 1; i++)
+                {
+                    current = current.Next;
+                    result = current.Next.Data;
+                    current.Next = current.Next.Previous;
+                }
+            }
+
             count--;
+
             return result;
         }
 
@@ -264,18 +251,25 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
 
             list.InsertByIndex(0, "Test1");//1
-            list.InsertByIndex(1, "Test3");//2
-            list.InsertByIndex(2, "Test4");//3
+            list.InsertByIndex(1, "Test2");//2
+            list.InsertByIndex(2, "Test3");//3
 
-            list.InsertAtHead("Test5");//0
+            list.InsertAtHead("Test4");//0
 
-            list.InsertAtHead("Test6");//4
+            list.InsertAtHead("Test5");//4
+
+            list.InsertAtHead("Test6");
 
             list.InsertAtHead("Test7");
 
-            list.InsertAtHead("Test8");
+            list.InsertByIndex(7, "Test8");
 
-            /*list.InsertAtTail("Test9");*/
+            list.InsertAtTail("Test9");
+
+            list.Remove(5);
+
+
+            /*list.Clear();*/
 
             list.Print();
 
@@ -286,7 +280,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             Console.WriteLine("Head Node is: " + list.FindByIndex(0));
 
-            Console.WriteLine("Tail node is: " + list.FindByIndex(6));
+            Console.WriteLine("Tail node is: " + list.FindByIndex(99));
 
             Console.WriteLine("The data you searched for is in index position: " 
                 + list.FindByData("Test3"));
