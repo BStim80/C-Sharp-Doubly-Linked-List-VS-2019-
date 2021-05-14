@@ -201,15 +201,24 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                                          //head node for us
             }
 
+
+            
             else
+            {
+                    this.FindByIndex(index);
+                    result = current.Data;
+                    current.Next = current.Next.Next;
+            }
+
+/*            else
             {
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
                     result = current.Next.Data;
-                    current.Next = current.Next.Previous;
+                    current.Next.Previous = current.Previous.Previous;
                 }
-            }
+            }*/
 
             count--;
 
@@ -249,25 +258,20 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             LinkedList list = new LinkedList();
 
 
-
             list.InsertByIndex(0, "Test1");//1
             list.InsertByIndex(1, "Test2");//2
             list.InsertByIndex(2, "Test3");//3
 
             list.InsertAtHead("Test4");//0
-
             list.InsertAtHead("Test5");//4
-
             list.InsertAtHead("Test6");
-
             list.InsertAtHead("Test7");
 
             list.InsertByIndex(7, "Test8");
 
             list.InsertAtTail("Test9");
 
-            list.Remove(5);
-
+            list.Remove(3);
 
             /*list.Clear();*/
 
