@@ -143,6 +143,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             else if (this.Empty)
                 return null;
 
+            //this finds the tail
             else if (index >= this.count)
                 index = this.count;//maybe index = this.count -1;
 
@@ -178,13 +179,33 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             return -1;
         }
 
-        public object Remove(int index)
-        {
-            if (index < 0)
-                throw new ArgumentOutOfRangeException("index: " + index);
+        /*
+         * Remove method needs to work in three situations:
+         * 
+         * [x] Removing the head node
+         * [] Removing a node in the middle of the list
+         * [] Removing the tail node
+         * 
+         *  Also, be sure to account for:
+         *  [x] if the list is empty
+         *  [x] if node trying to be removed is not in the list ( < 0 || > count)
+         *  
+         */
 
-            else if (index > this.count)
-                throw new ArgumentOutOfRangeException("index: " + index);
+
+
+
+
+        //remove method is currently removing the index positions before and after the
+        //index # that I type into the parameters. It also repeated the data from the
+        //node before the tail and made it into a new tail.
+        public object RemoveByIndex(int indexToRemove)
+        {
+            if (indexToRemove < 0)
+                throw new ArgumentOutOfRangeException("index: " + indexToRemove);
+
+            else if (indexToRemove > this.count)
+                throw new ArgumentOutOfRangeException("index: " + indexToRemove);
 
             else if (this.Empty)
                 return null;
@@ -193,7 +214,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             object result = null;
 
             //removes the head node
-            if (index == 0)
+            if (indexToRemove == 0)
             {
                 result = current.Data;//get the data from the head node
                 this.head = current.Next;//removes reference from head and set it to next node
@@ -202,24 +223,97 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             }
 
 
-            
-            else
+            //removes tail node
+            else if (indexToRemove == count)
             {
-                    this.FindByIndex(index);
-                    result = current.Data;
-                    current.Next = current.Next.Next;
+                result = current.Data;
+                this.tail = current.Previous;
             }
 
-/*            else
+            //removes node in the middle
+            else
             {
-                for (int i = 0; i < index - 1; i++)
+                /*int index = this.count - 1;*/
+                Node toDelete = head;
+                int index = count - 1;
+                while (index != indexToRemove)
                 {
-                    current = current.Next;
-                    result = current.Next.Data;
-                    current.Next.Previous = current.Previous.Previous;
+
                 }
+            }
+ /*           else
+            {
+                Node toDelete = head;
+                int index = count - 1;
+
+                for (int i = 0; i < index; i++)
+                {
+                    if (toDelete == result)
+                    {
+                        result = current.Data;
+                        toDelete.Next.Previous = toDelete.Previous;
+                        toDelete.Previous.Next = toDelete.Next;
+
+                        toDelete = toDelete.Next;
+                        break;
+                    }
+                }*/
+                /*
+                                if (toDelete != null)
+                                    {
+                                        if (toDelete.Next != null)
+                                        {
+                                            toDelete.Next.Previous = toDelete.Previous;
+                                            toDelete.Previous.Next = toDelete.Next;
+                                        }                        
+                                    }      */
+           /* }*/
+    
+
+            /*else
+            {
+                this.FindByIndex(index);
+        current.Previous.Next = current.Next;
+                current.Previous.Previous = current.Previous;
+
+
+                current = this.head;
+                result = current.Data;
+                current.Data = index;
+                current.Previous = current;
+                current.Next.Next = current.Next;
+
+                current.Previous.Next.Next = current.Next.Next;
+                current.Next.Previous.Previous = current.Previous.Previous;
+
+                current.Next = current;//these two lines show how I set this method up originally
+                current.Previous = current;
+
             }*/
 
+    /*else
+    {
+        for (int i = 0; i < index - 1; i++)
+        {
+            current = current.Next;
+            result = current.Data;
+            current.Previous.Next = current.Next;
+            current.Previous.Previous = current.Previous;
+
+
+            current.Previous = current;
+            current.Next.Next = current.Next;
+
+
+            current.Next.Next = current.Next;
+            current.Previous.Next = current.Previous;
+
+            result = current.Data;
+            current.Previous.Next = current.Next;
+            current.Next.Previous = current.Previous;
+        }
+    }
+*/
             count--;
 
             return result;
@@ -271,7 +365,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             list.InsertAtTail("Test9");
 
-            list.Remove(3);
+            list.RemoveByIndex(8);
 
             /*list.Clear();*/
 
