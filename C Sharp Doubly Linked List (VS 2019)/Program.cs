@@ -283,31 +283,11 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             list.InsertByIndex(5, "Test6");
             list.InsertByIndex(6, "Test7");
 
-            /*list.InsertAtHead("Test0");
+            list.InsertAtHead("Test0");
 
-            list.InsertAtTail("Test8");*/
+            list.InsertAtTail("Test8");
 
             list.RemoveByIndex(3);
-
-
-
-            /*
-                        list.InsertByIndex(0, "Test1");//1
-                        list.InsertByIndex(1, "Test2");//2
-                        list.InsertByIndex(2, "Test3");//3*/
-
-            /*            list.InsertAtHead("Test4");//0
-                        list.InsertAtHead("Test5");//4
-                        list.InsertAtHead("Test6");
-                        list.InsertAtHead("Test7");*/
-
-            /*            list.InsertByIndex(3, "Test8");
-            */
-            /*            list.InsertAtTail("Test9");
-            */
-            /*            list.RemoveByIndex(3);
-            */
-            /*list.Clear();*/
 
             list.Print();
 
