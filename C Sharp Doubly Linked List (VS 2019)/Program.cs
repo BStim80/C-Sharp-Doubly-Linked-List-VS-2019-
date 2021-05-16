@@ -66,7 +66,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         //I did not need to define count. It is built into the C# library
         public int Count
         {
-            get { return this.count -1; }
+            get { return this.count - 1; }
         }
 
         //indexer(just another way to use the find method)
@@ -179,26 +179,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             return -1;
         }
 
-        /*
-         * Remove method needs to work in three situations:
-         * 
-         * [x] Removing the head node
-         * [] Removing a node in the middle of the list
-         * [] Removing the tail node
-         * 
-         *  Also, be sure to account for:
-         *  [x] if the list is empty
-         *  [x] if node trying to be removed is not in the list ( < 0 || > count)
-         *  
-         */
-
-
-
-
-
-        //remove method is currently removing the index positions before and after the
-        //index # that I type into the parameters. It also repeated the data from the
-        //node before the tail and made it into a new tail.
+ 
         public object RemoveByIndex(int indexToRemove)
         {
             if (indexToRemove < 0)
@@ -223,97 +204,27 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             }
 
 
-            //removes tail node
-            else if (indexToRemove == count)
+            //removes tail node reference 
+            else if (indexToRemove + 1 == count)
             {
                 result = current.Data;
                 this.tail = current.Previous;
+                current.Next = null;
             }
 
             //removes node in the middle
             else
             {
-                /*int index = this.count - 1;*/
-                Node toDelete = head;
-                int index = count - 1;
-                while (index != indexToRemove)
+                int index = this.count - 1;
+                for (int i = 0; i <= index; i++)
                 {
-
+                    current = current.Next;
+                    result = current.Data;
+                    current.Previous.Next = current.Next;
+                    current.Next.Next = current.Next;
                 }
             }
- /*           else
-            {
-                Node toDelete = head;
-                int index = count - 1;
 
-                for (int i = 0; i < index; i++)
-                {
-                    if (toDelete == result)
-                    {
-                        result = current.Data;
-                        toDelete.Next.Previous = toDelete.Previous;
-                        toDelete.Previous.Next = toDelete.Next;
-
-                        toDelete = toDelete.Next;
-                        break;
-                    }
-                }*/
-                /*
-                                if (toDelete != null)
-                                    {
-                                        if (toDelete.Next != null)
-                                        {
-                                            toDelete.Next.Previous = toDelete.Previous;
-                                            toDelete.Previous.Next = toDelete.Next;
-                                        }                        
-                                    }      */
-           /* }*/
-    
-
-            /*else
-            {
-                this.FindByIndex(index);
-        current.Previous.Next = current.Next;
-                current.Previous.Previous = current.Previous;
-
-
-                current = this.head;
-                result = current.Data;
-                current.Data = index;
-                current.Previous = current;
-                current.Next.Next = current.Next;
-
-                current.Previous.Next.Next = current.Next.Next;
-                current.Next.Previous.Previous = current.Previous.Previous;
-
-                current.Next = current;//these two lines show how I set this method up originally
-                current.Previous = current;
-
-            }*/
-
-    /*else
-    {
-        for (int i = 0; i < index - 1; i++)
-        {
-            current = current.Next;
-            result = current.Data;
-            current.Previous.Next = current.Next;
-            current.Previous.Previous = current.Previous;
-
-
-            current.Previous = current;
-            current.Next.Next = current.Next;
-
-
-            current.Next.Next = current.Next;
-            current.Previous.Next = current.Previous;
-
-            result = current.Data;
-            current.Previous.Next = current.Next;
-            current.Next.Previous = current.Previous;
-        }
-    }
-*/
             count--;
 
             return result;
@@ -352,25 +263,39 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             LinkedList list = new LinkedList();
 
 
-            list.InsertByIndex(0, "Test1");//1
-            list.InsertByIndex(1, "Test2");//2
-            list.InsertByIndex(2, "Test3");//3
 
-            list.InsertAtHead("Test4");//0
-            list.InsertAtHead("Test5");//4
-            list.InsertAtHead("Test6");
-            list.InsertAtHead("Test7");
+            list.InsertByIndex(0, "Test1");
+            list.InsertByIndex(1, "Test2");
+            list.InsertByIndex(2, "Test3");
 
-            list.InsertByIndex(7, "Test8");
+            list.RemoveByIndex(1);
 
-            list.InsertAtTail("Test9");
+            /*            list.InsertByIndex(3, "Test4");
+                        list.InsertByIndex(4, "Test5");
+                        list.InsertByIndex(5, "Test6");
+                        list.InsertByIndex(6, "Test7");*/
 
-            list.RemoveByIndex(8);
 
+
+            /*
+                        list.InsertByIndex(0, "Test1");//1
+                        list.InsertByIndex(1, "Test2");//2
+                        list.InsertByIndex(2, "Test3");//3*/
+
+            /*            list.InsertAtHead("Test4");//0
+                        list.InsertAtHead("Test5");//4
+                        list.InsertAtHead("Test6");
+                        list.InsertAtHead("Test7");*/
+
+            /*            list.InsertByIndex(3, "Test8");
+            */
+            /*            list.InsertAtTail("Test9");
+            */
+            /*            list.RemoveByIndex(3);
+            */
             /*list.Clear();*/
 
             list.Print();
-
 
             Console.WriteLine("Is it empty? " + list.Empty);
 
