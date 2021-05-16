@@ -182,6 +182,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
  
         public object RemoveByIndex(int indexToRemove)
         {
+            Node current = this.head;
+            object result = null;
+
             if (indexToRemove < 0)
                 throw new ArgumentOutOfRangeException("index: " + indexToRemove);
 
@@ -191,18 +194,14 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             else if (this.Empty)
                 return null;
 
-            Node current = this.head;
-            object result = null;
-
             //removes the head node
-            if (indexToRemove == 0)
+            else if (indexToRemove == 0)
             {
                 result = current.Data;//get the data from the head node
                 this.head = current.Next;//removes reference from head and set it to next node
-                                         //garbage collection takes care of removing the former 
+                current.Previous = null; //garbage collection takes care of removing the former 
                                          //head node for us
             }
-
 
             //removes tail node reference 
             else if (indexToRemove + 1 == count)
@@ -215,14 +214,23 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             //removes node in the middle
             else
             {
-                int index = this.count - 1;
-                for (int i = 0; i <= index; i++)
+                for (int i = 0; i <= indexToRemove - 1; i++)
                 {
                     current = current.Next;
+                    
+                    /*current.Next = current.Next.Next;
+                    current.Next.Previous = current;*/
+
+                    /*current = current.Next;
+
                     result = current.Data;
-                    current.Previous.Next = current.Next;
+
                     current.Next.Next = current.Next;
+                    current.Next.Previous = current.Next; *///this is the closest I have gotten
                 }
+                result = current.Data;
+                current.Next.Previous = current.Previous;
+                current.Previous.Next = current.Next;
             }
 
             count--;
@@ -268,12 +276,18 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             list.InsertByIndex(1, "Test2");
             list.InsertByIndex(2, "Test3");
 
-            list.RemoveByIndex(1);
 
-            /*            list.InsertByIndex(3, "Test4");
-                        list.InsertByIndex(4, "Test5");
-                        list.InsertByIndex(5, "Test6");
-                        list.InsertByIndex(6, "Test7");*/
+            list.InsertByIndex(3, "Test4");
+
+            list.InsertByIndex(4, "Test5");
+            list.InsertByIndex(5, "Test6");
+            list.InsertByIndex(6, "Test7");
+
+            /*list.InsertAtHead("Test0");
+
+            list.InsertAtTail("Test8");*/
+
+            list.RemoveByIndex(3);
 
 
 
