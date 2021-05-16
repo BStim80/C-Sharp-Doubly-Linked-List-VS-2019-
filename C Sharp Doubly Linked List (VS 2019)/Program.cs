@@ -21,7 +21,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
         //Public Properties: we access our private fields with our public properties in order to
-        //make changed. Properties act as gatekeepers for private fields (they work together)
+        //make changes. Properties act as gatekeepers for private fields (they work together)
         //value is what is actually being stored in the node
         public object Data
         {
@@ -50,6 +50,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         private int count;//total count of all node in the list
 
         //Constructor 
+        //This initializes the private fields
         public LinkedList()
         {
             this.head = null;
@@ -79,6 +80,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
         //Methods
+
+        //This method creates a new head node. Parameters require you to specify the data that
+        //you would like to store in the new head node
         public void InsertAtHead(object itemToInsert)
         {
             Node temp = new Node(itemToInsert, null, null);
@@ -97,15 +101,16 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 temp.Previous = null;
                 head = temp;
             }
+
+            //Adds one to the count every time we add a node to the list
             count++;
         }
 
+        //This method will insert a node anywhere in the list. Parameters require you to 
+        //specify which index you would like to insert into and the data that you would like 
+        //the node to store
         public void InsertByIndex(int index, object itemToInsert)
         {
-/*            Node temp = new Node(itemToInsert, null, null);
-*/
-            //tell Dima that I changed the line below to count + 1 in case I was trying to
-            //make new tail. I can change it back to (index < 0 || index > count)
             if (index < 0 || index > count + 1)
                 throw new ArgumentOutOfRangeException("Index " + index);
 
@@ -122,19 +127,24 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
                 for (int i = 0; i < index - 1; i++)
                 {
-                    current = current.Next;//adjusts pointers This line may have an error. Check tomorrow!
+                    current = current.Next;
                 }
                 current.Next = new Node(itemToInsert, current, current);
             }
+
+            //Adds one to the count every time we add a node to the list
             count++;
         }
 
+        //This method creates a new tail node. Parameters require you to specify the data that
+        //you would like to store in the new tail node
         public void InsertAtTail(object itemToInsert)
         {
-            this.InsertByIndex(Count, itemToInsert);//this may need to be changed to 
-                                                    //this.InsertByIndex(Count + 1, itemToInsert)
+            this.InsertByIndex(Count, itemToInsert);
         }
 
+        //This method will search the list and return the data stored in whichever node you
+        //specify (by index)
         public object FindByIndex(int index)
         {
             if (index < 0)
@@ -145,7 +155,11 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             //this finds the tail
             else if (index >= this.count)
-                index = this.count;//maybe index = this.count -1;
+                index = this.count;
+
+            //The for loop below will iterate through the list until it finds the index you
+            //entered in the parameters. It will return the data that is stored in the 
+            //specified node
 
             Node current = this.head;
 
@@ -158,11 +172,12 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
 
 
-
+        //This method will search through the nodes in the list until it finds the data 
+        //(String reference) that you specified in the parameters. It will return the index 
+        //position of the node that the dataToFind is stored in.
         public int FindByData(object dataToFind)
         {
-            Node current = this.head;//gets head node
-            //this.count = count - 1;
+            Node current = this.head;
 
             int indexPosition = 0;
 
@@ -174,12 +189,17 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                     return indexPosition;
                 }
                 current = current.Next;
+                
+                //every time we loop through the list, this will increment indexPostion
                 indexPosition++;
             }
+
+            //If dataToFind is not found in the list, this method will return - 1
             return -1;
         }
 
- 
+        //This method will remove a node anywhere in the list. It requires you to specify the
+        //index of the node that you would like to remove in the parameters. 
         public object RemoveByIndex(int indexToRemove)
         {
             Node current = this.head;
@@ -193,17 +213,23 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             else if (this.Empty)
                 return null;
-
+            
             //removes the head node
             else if (indexToRemove == 0)
             {
-                result = current.Data;//get the data from the head node
-                this.head = current.Next;//removes reference from head and set it to next node
-                current.Previous = null; //garbage collection takes care of removing the former 
-                                         //head node for us
+                //get the data from the head node
+                //I set result to equal null
+                result = current.Data;
+
+                //removes reference from head and set it to next node
+                this.head = current.Next;
+
+                //garbage collection takes care of removing the former 
+                //head node for us
+                current.Previous = null; 
             }
 
-            //removes tail node reference 
+            //removes tail node  
             else if (indexToRemove + 1 == count)
             {
                 result = current.Data;
@@ -217,27 +243,20 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 for (int i = 0; i <= indexToRemove - 1; i++)
                 {
                     current = current.Next;
-                    
-                    /*current.Next = current.Next.Next;
-                    current.Next.Previous = current;*/
-
-                    /*current = current.Next;
-
-                    result = current.Data;
-
-                    current.Next.Next = current.Next;
-                    current.Next.Previous = current.Next; *///this is the closest I have gotten
                 }
                 result = current.Data;
                 current.Next.Previous = current.Previous;
                 current.Previous.Next = current.Next;
             }
 
+            //removes one from count every time a node is removed
             count--;
 
             return result;
         }
 
+        //This method removes all nodes from the list. We set head and tail to = null and set 
+        //the count to zero. Garbage collection handles the rest
         public void Clear()
         {
             this.head = null;
@@ -245,15 +264,19 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
             this.count = 0;
         }
 
+        //This method prints all of the nodes in the list in order
         public void Print()
         {
+            //this finds the head node for when we loop through the list
             Node current = this.head;
 
+            //If list is empty:
             if (head == null)
             {
                 Console.WriteLine("List is empty");
             }
 
+            //If list is not empty:
             Console.WriteLine("Nodes of doubly linked list are: ");
 
             for (int i = 0; i < this.count - 1; i++)
@@ -287,7 +310,9 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
 
             list.InsertAtTail("Test8");
 
-            list.RemoveByIndex(3);
+            //list.RemoveByIndex(3);
+
+            //list.Clear();
 
             list.Print();
 
