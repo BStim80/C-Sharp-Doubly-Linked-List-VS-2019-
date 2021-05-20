@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace C_Sharp_Doubly_Linked_List__VS_2019_
 {
+    //This is the final build before any refactoring. 
+
     //this class will hold the data that we want to store in the list and a reference to the
     //previous and next nodes in the list
     public class Node
@@ -42,6 +44,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         }
     }
 
+
+    //This class is where I will make the list and all of the methods
     public class LinkedList
     {
         //Private Fields
@@ -67,7 +71,7 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
         //I did not need to define count. It is built into the C# library
         public int Count
         {
-            get { return this.count - 1; }
+            get { return this.count - 1; }//look into this
         }
 
         //indexer(just another way to use the find method)
@@ -212,8 +216,8 @@ namespace C_Sharp_Doubly_Linked_List__VS_2019_
                 throw new ArgumentOutOfRangeException("index: " + indexToRemove);
 
             else if (this.Empty)
-                return null;
-            
+                throw new ArgumentOutOfRangeException("index: " + indexToRemove);
+
             //removes the head node
             else if (indexToRemove == 0)
             {
